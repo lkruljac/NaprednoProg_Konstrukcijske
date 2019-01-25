@@ -1,0 +1,77 @@
+##########################
+###Autor: Luka Kruljac ###
+##########################
+
+Dinamièka biblioteka na windowsima, u visual studiu
+
+#############################
+### Kreiranje biblioteke  ###
+#############################
+
+New Project
+	Visaul C++
+	Win32 Console Application
+	(Zapamti lokaciju projekta)
+	Application Settings
+		Check DLL
+		Check Empty project
+
+Add new source
+	MyLibrary.cpp
+Add new Header
+	MyHeader.cpp
+
+
+
+Sve funkcije koje želiš koristiti u projektu koji æe koristit tvoj dll, unutar .h i .cpp datototeke ispred tipa funkcije treba dodati "__declspec(dllexport)" 
+
+Build...
+
+Ako je sve dobro, odi na lokaciju projekta ImeProjekta\Debug, u tom folderu se treba nalazit "ImeProjekta.dll" i "ImeProjekta.lib"
+
+Na taj naèin kreiro si dinamièku biblioteku
+
+########################################
+### Korištenje biblioteke u projektu ###
+########################################
+
+U mapi u kojoj se nalazi projekt(gdje se nalazi .sln datoteka), napraviti novu mapu, staviti ime Dependencies(nije nužno tako, ali tad se zna na što se misli).
+
+
+Unutar te mape, napraviti mapu "MyLibrary", unutar mape "MyLibrary" kreirati mape "include" i "lib"
+.dll kopirati unutar mape Debug, .h kopirati unutar napravljene mape include, .lib i .dll kopirati unutar napravljene mape lib(vidi stablo)
+
+Stablo:
+
+Project
+|_______Debug
+|	|
+|	|_______MyProject.exe
+|	|_______MyLibrary.dll
+|
+|
+|_______Dependencies
+|	|
+|	|_______MyLibray
+|		|
+|		|_______include
+|		|	|_______MyLibrary.h
+|		|
+|		|_______lib
+|			|_______MyLibrary.dll
+|			|_______MyLibrary.lib
+|
+|_______MyProject
+|
+|_______Project.sln
+|_______Project.vc.db
+|_______Project.vc.opendb
+
+Sada otvoriti visual studio(dvostruki klik na Project.sln)
+
+U solution exploreru odabrati MyProject, desni klik
+Configuration properities -> VC++ Directories -> Include directories -> Edit -> Dodati path do napravljene include mape
+Configuration properities -> VC++ Directories -> Library directories -> Edit -> Dodati path do napravljene lib mape
+Configuration properities -> Linker -> Input -> Aditional dependencies -> Edit -> upisati "MyLibrary.lib"
+
+
